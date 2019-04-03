@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+.wrapper {
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.navbar a.nav-link {
+  color: #dadada;
+}
+
+#login-form, #signup-form {
+  width: 30%;
+}

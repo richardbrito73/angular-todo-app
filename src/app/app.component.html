@@ -1,7 +1,17 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<header>
-  <div class="container">
-    <h1>To Do App</h1>
-  </div>
-</header>
+<div class="wrapper">
+  <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">To Do App</a>
 
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link active" routerLink="/login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/signup">Sign Up</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
