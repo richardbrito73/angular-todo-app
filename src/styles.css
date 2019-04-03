@@ -1,3 +1,26 @@
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(167, 167, 204, 0.51);
+  border-radius: 6px;
+
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(170, 180, 255, 0);
+}
+
+body {
+  scrollbar-face-color: #383846;
+  scrollbar-track-color: #232635;
+  scrollbar-color: #383846 #232635;
+}
+
+
 .wrapper {
   padding: 0 !important;
   margin: 0 !important;

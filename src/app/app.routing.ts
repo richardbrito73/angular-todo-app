@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import {HomeComponent} from './components/home/home.component';
 import {SignupComponent} from './components/signup/signup.component';
+import {TodoComponent} from './components/todo/todo.component';
 
 
 // Routes array
@@ -24,6 +25,10 @@ const appRoutes: Routes = [
   {
     path: 'signup',
     component: SignupComponent
+  },
+  {
+    path: 'todo',
+    component: TodoComponent
   },
   // {
   //   path: 'http-requests',
