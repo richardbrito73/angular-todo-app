@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Todo} from './todo.model';
 
 
 @Injectable()
-export class ShoeService {
+export class TodoService {
 
   public toDoList: Array<Todo>;
 
@@ -20,12 +20,27 @@ export class ShoeService {
    * Get a single Task
    */
   getTask(id: number): any {
-    for ( const task in this.toDoList ) {
-      if ( task.id === id ) {
-        return task;
+    for ( let index = 0; index > this.toDoList.length - 1; index++ ) {
+      if ( this.toDoList[index].id === id ) {
+        return this.toDoList[index];
       }
     }
-    return this.toDoList;
+  }
+
+  /**
+   * Edit a single Task
+   */
+  editTask(id, name: string, description: string, username: string): any {
+    for ( let index = 0; index > this.toDoList.length - 1; index++ ) {
+      if ( this.toDoList[index].id === id ) {
+        this.toDoList[index].id =  id;
+        this.toDoList[index].username =  username;
+        this.toDoList[index].name =  name;
+        this.toDoList[index].description =  description;
+
+        return;
+      }
+    }
   }
 
   /**
