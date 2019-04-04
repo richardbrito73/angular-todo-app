@@ -7,12 +7,57 @@ export class TodoService {
 
   public toDoList: Array<Todo>;
 
-  constructor() { }
+  constructor() {
+    this.toDoList = [
+      new Todo(1,
+        'richardbrito',
+        'Do Something',
+        'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
+        true,
+        false,
+        false),
+      new Todo(2,
+        'richardbrito',
+        'Do Something',
+        'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
+        true,
+        false,
+        false),
+      new Todo(3,
+        'richardbrito',
+        'Do Something',
+        'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
+        false,
+        true,
+        false),
+      new Todo(4,
+        'richardbrito',
+        'Do Something',
+        'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
+        false,
+        true,
+        false),
+      new Todo(5,
+        'richardbrito',
+        'Do Something',
+        'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
+        false,
+        false,
+        true),
+      new Todo(6,
+        'richardbrito',
+        'Do Something',
+        'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
+        false,
+        false,
+        true),
+    ];
+  }
 
   /**
    * Get all Tasks
    */
-  getTasks(): Array<Shoe> {
+  getTasks(): Array<Todo> {
     return this.toDoList;
   }
 
