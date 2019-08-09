@@ -1,0 +1,29 @@
+<div mdbModal #taskModal="mdbModal" class="modal fade top" id="frameModalTask" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">New Task</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="taskModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form my-2">
+          <input type="email" id="addName" [formControl]="taskFormName" class="form-control validate" mdbInput>
+          <label data-error="wrong" data-success="right" for="addName">Task name</label>
+        </div>
+
+        <div class="md-form mb-1 my-2">
+          <textarea type="password"  id="addDescription" [formControl]="taskFormDescription"
+                    class="md-textarea form-control validate mb-0"
+                    length="120" mdbCharCounter mdbInput></textarea>
+          <label data-error="wrong" data-success="right" for="addDescription">Description</label>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn color="default" class="waves-light" mdbWavesEffect>Add</button>
+      </div>
+    </div>
+  </div>
+</div>

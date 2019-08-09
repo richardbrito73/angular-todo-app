@@ -1,12 +1,14 @@
 <div class="row">
   <div class="col-lg-6">
-    <button class="btn btn-info mb-3 mt-4" id="add-task" data-toggle="modal" data-target="#addModal">Add Task</button>
+    <a href="javascript:void(0)" mdbBtn class="btn btn-info mb-3 mt-4" size="md" id="add-task" 
+            data-toggle="modal" data-target="#addModal" (click)="addTask.show()">
+            Add Task</a>
   </div>
   <div class="col-lg-6">
     <div class="input-group mb-3 mt-4">
       <input type="text" class="form-control py-3" placeholder="Search task" aria-label="Search Task" aria-describedby="button-addon2">
       <div class="input-group-append">
-        <button class="btn btn-info mt-n1" id="search">Search</button>
+        <button mdbBtn class="btn btn-info m-0" size="md" id="search">Search</button>
       </div>
     </div>
   </div>
@@ -15,10 +17,11 @@
 <div class="row">
   <div class="col-lg-4 tasks-wrapper">
     <div class="no-padding no-margin" *ngFor="let task of toDoList">
+      <!-- TODO: set a validation to show the tasks of the logged user -->
       <div class="card my-1" style="width: 100%;" *ngIf="task.isPending && !task.isDoing && !task.isDone">
         <div class="card-header text-right">
-          <a href="javascript:void(0)" class="mr-3" data-toggle="modal" data-target="#editModal">Edit</a>
-          <a href="javascript:void(0)" class="text-danger" data-toggle="modal" data-target="#deleteModal">Delete</a>
+          <a href="javascript:void(0)" class="mr-3" data-toggle="modal" data-target="#editModal" (click)="openModal(task.id, editTask)">Edit</a>
+          <a href="javascript:void(0)" class="text-danger" data-toggle="modal" data-target="#deleteModal" (click)="deleteTask.show()">Delete</a>
         </div>
         <div class="card-body">
           <h5 class="card-title">{{task.name}}</h5>
@@ -32,10 +35,11 @@
   </div>
   <div class="col-lg-4 tasks-wrapper">
     <div class="no-padding no-margin" *ngFor="let task of toDoList">
+      <!-- TODO: set a validation to show the tasks of the logged user -->
       <div class="card my-1" style="width: 100%;" *ngIf="!task.isPending && task.isDoing && !task.isDone">
         <div class="card-header text-right">
-          <a href="javascript:void(0)" class="mr-3" data-toggle="modal" data-target="#editModal">Edit</a>
-          <a href="javascript:void(0)" class="text-danger" data-toggle="modal" data-target="#deleteModal">Delete</a>
+          <a href="javascript:void(0)" class="mr-3" data-toggle="modal" data-target="#editModal" (click)="openModal(task.id, editTask)">Edit</a>
+          <a href="javascript:void(0)" class="text-danger" data-toggle="modal" data-target="#deleteModal" (click)="deleteTask.show()">Delete</a>
         </div>
         <div class="card-body">
           <h5 class="card-title">{{task.name}}</h5>
@@ -50,17 +54,18 @@
   </div>
   <div class="col-lg-4 tasks-wrapper">
     <div class="no-padding no-margin" *ngFor="let task of toDoList">
+      <!-- TODO: set a validation to show the tasks of the logged user -->
       <div class="card my-1" style="width: 100%;" *ngIf="!task.isPending && !task.isDoing && task.isDone">
         <div class="card-header text-right">
-          <a href="javascript:void(0)" class="mr-3" data-toggle="modal" data-target="#editModal">Edit</a>
-          <a href="javascript:void(0)" class="text-danger" data-toggle="modal" data-target="#deleteModal">Delete</a>
+          <a href="javascript:void(0)" class="mr-3" data-toggle="modal" data-target="#editModal" (click)="openModal(task.id, editTask)">Edit</a>
+          <a href="javascript:void(0)" class="text-danger" data-toggle="modal" data-target="#deleteModal" (click)="deleteTask.show()">Delete</a>
         </div>
         <div class="card-body">
           <h5 class="card-title">{{task.name}}</h5>
           <p class="card-text">{{task.description}}</p>
           <div class="btn-group" role="group" aria-label="Basic example" style="width: 100%">
-            <button mdbBtn class="btn btn-info" size="sm">Doing</button>
             <button mdbBtn class="btn btn-warning" size="sm">To Do</button>
+            <button mdbBtn class="btn btn-info" size="sm">Doing</button>
           </div>
         </div>
       </div>
@@ -68,66 +73,100 @@
   </div>
 </div>
 
+
+<app-modal (passData)="getData($event)"></app-modal>
+
+
 <!-- Add Task Modal -->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="1" aria-hidden="true">
+
+<div mdbModal #addTask="mdbModal" class="modal fade top" id="frameModalAdd" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-dismiss="modal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="1">Add Task</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">NEW TASK</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="addTask.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <input type="text" class="form-control mb-2" placeholder="Task name" aria-label="Search Task" aria-describedby="button-addon2">
-        <textarea class="form-control" aria-describedby="button-addon2" rows="2"></textarea>
+      <div class="modal-body mx-3">
+        <div class="md-form my-2">
+          <input type="text" id="addName" name="addName" #addName="ngModel" [(ngModel)]="addTaskName" class="form-control validate" mdbInput>
+          <label data-error="wrong" data-success="right" for="addName">Task name</label>
+        </div>
+
+        <div class="md-form mb-1 my-2">
+          <textarea name="addDescription" id="addDescription" #addDescription [(ngModel)]="addTaskDescription"
+                    class="md-textarea form-control validate mb-0"
+                    length="120" mdbCharCounter mdbInput></textarea>
+          <label data-error="wrong" data-success="right" for="addDescription">Description</label>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn color="default" class="waves-light" mdbWavesEffect>Add</button>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Delete Task Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="2" aria-hidden="true">
+
+<div mdbModal #deleteTask="mdbModal" class="modal fade top" id="frameModalDelete" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-dismiss="modal">
   <div class="modal-dialog" role="document">
+    <!--Content-->
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="2">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">DELETE TASK</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="editTask.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <!--Body-->
       <div class="modal-body">
-        Are you sure you want to delete this task?
+        <div class="row">
+          <div class="col-12">
+            <p class="pt-4 text-center">Are you sure you want to delete this task?</p>
+          </div>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger">Delete</button>
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" mdbBtn color="grey" outline="true" class="waves-effect" mdbWavesEffect (click)="deleteTask.hide()"
+           data-dismiss="modal">Cancel</a>
+        <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect>Delete</a>
       </div>
     </div>
+    <!--/.Content-->
   </div>
 </div>
 
 <!-- Edit Task Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="3" aria-hidden="true">
+<div mdbModal #editTask="mdbModal" class="modal fade top" id="frameModalEdit" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" (opened)="getTask()">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="3">Edit Task</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">EDIT TASK</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="editTask.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <input type="text" class="form-control mb-2" placeholder="Task name" aria-label="Search Task" aria-describedby="task-name">
-        <textarea class="form-control" aria-describedby="task-name" rows="2"></textarea>
+      <div class="modal-body mx-3">
+        <div class="md-form my-2">
+          <input type="text" id="editName" name="editName" #editName="ngModel" [(ngModel)]="editTaskName" class="form-control validate" mdbInput>
+          <label data-error="wrong" data-success="right" for="editName">Task name</label>
+        </div>
+
+        <div class="md-form mb-1 my-2">
+          <textarea name="editDescription" id="editDescription" #editDescription="ngModel" [(ngModel)]="editTaskDescription"
+                    class="md-textarea form-control validate mb-0"
+                    length="120" mdbCharCounter mdbInput></textarea>
+          <label data-error="wrong" data-success="right" for="editDescription">Description</label>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn color="default" class="waves-light" mdbWavesEffect>Edit</button>
       </div>
     </div>
   </div>
