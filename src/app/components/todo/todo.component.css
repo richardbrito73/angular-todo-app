@@ -1,6 +1,13 @@
+.todo-container {
+  overflow-x: auto; 
+}
+
 .tasks-wrapper {
-  height: 500px;
+  height: 450px;
   overflow-y: scroll;
+  padding: 0 10px;
+  flex: 0 0 auto;
+  width: 33.3%;
   /*overflow-x: hidden;*/
 }
 

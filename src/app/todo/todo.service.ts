@@ -105,8 +105,9 @@ export class TodoService {
    * Get a single Task
    */
   getTask(id: number): any {
-    for ( let index = 0; index < this.toDoList.length - 1; index++ ) {
-      console.log(index);
+    console.log(this.toDoList);
+    for ( let index = 0; index < this.toDoList.length; index++ ) {
+      // console.log(this.toDoList[index].id);
       if ( this.toDoList[index].id === id ) {
         return this.toDoList[index];
       }
@@ -116,15 +117,13 @@ export class TodoService {
   /**
    * Edit a single Task
    */
-  editTask(id, name: string, description: string, username: string): any {
-    for ( let index = 0; index < this.toDoList.length - 1; index++ ) {
+  editTask(id: number, name: string, description: string, username: string): any {
+    for ( let index = 0; index < this.toDoList.length; index++ ) {
+      // console.log(this.toDoList[index].id);
       if ( this.toDoList[index].id === id ) {
-        this.toDoList[index].id =  id;
         this.toDoList[index].username =  username;
         this.toDoList[index].name =  name;
         this.toDoList[index].description =  description;
-
-        return;
       }
     }
   }
@@ -133,8 +132,10 @@ export class TodoService {
    * Add a new to do Task
    * By default the task will be set as Pending
    */
-  addTask(id, name: string, description: string, username: string): any {
+  addTask(name: string, description: string, username: string): any {
+    let id = this.toDoList[this.toDoList.length - 1].id + 1
     const task = new Todo(id, username, name, description, true, false, false);
+    // console.log(task);
     this.toDoList.push(task);
   }
 
@@ -142,7 +143,7 @@ export class TodoService {
    * Delete a single task
    */
   deleteTask(id): any {
-    for ( let index = 0; index < this.toDoList.length - 1; index++ ) {
+    for ( let index = 0; index < this.toDoList.length; index++ ) {
       if ( this.toDoList[index].id === id ) {
         this.toDoList.splice(index, 1);
       }

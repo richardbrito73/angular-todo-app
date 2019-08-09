@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-lg-6">
     <a href="javascript:void(0)" mdbBtn class="btn btn-info mb-3 mt-4" size="md" id="add-task" 
-            data-toggle="modal" data-target="#addModal" (click)="addTask.show()">
+            data-toggle="modal" data-target="#addModal" (click)="addTaskModal.show()">
             Add Task</a>
   </div>
   <div class="col-lg-6">
@@ -13,15 +13,32 @@
     </div>
   </div>
 </div>
-
-<div class="row">
-  <div class="col-lg-4 tasks-wrapper">
+<div class="d-flex justify-content-around">
+  <div>
+    <div id="todo-pending">
+        <h3>To Do</h3>
+    </div>
+  </div>
+  <div>
+    <div id="todo-doing">
+      <h3>Doing</h3>
+  </div>
+  </div>
+  <div>
+    <div id="todo-done">
+      <h3>Done</h3>
+    </div>
+  </div>
+</div>
+<div class="todo-container d-flex justify-content-between flex-nowrap">
+  <div class="tasks-wrapper">
     <div class="no-padding no-margin" *ngFor="let task of toDoList">
       <!-- TODO: set a validation to show the tasks of the logged user -->
       <div class="card my-1" style="width: 100%;" *ngIf="task.isPending && !task.isDoing && !task.isDone">
         <div class="card-header text-right">
-          <a href="javascript:void(0)" class="mr-3" data-toggle="modal" data-target="#editModal" (click)="openModal(task.id, editTask)">Edit</a>
-          <a href="javascript:void(0)" class="text-danger" data-toggle="modal" data-target="#deleteModal" (click)="deleteTask.show()">Delete</a>
+          <a href="javascript:void(0)" class="mr-3" data-toggle="modal" data-target="#editModal" (click)="openModal(task.id, editTaskModal)">Edit</a>
+          <a href="javascript:void(0)" class="text-danger" data-toggle="modal" data-target="#deleteModal" 
+             (click)="openModal(task.id, deleteTaskModal)">Delete</a>
         </div>
         <div class="card-body">
           <h5 class="card-title">{{task.name}}</h5>
@@ -33,13 +50,14 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-4 tasks-wrapper">
+  <div class="tasks-wrapper">
     <div class="no-padding no-margin" *ngFor="let task of toDoList">
       <!-- TODO: set a validation to show the tasks of the logged user -->
       <div class="card my-1" style="width: 100%;" *ngIf="!task.isPending && task.isDoing && !task.isDone">
         <div class="card-header text-right">
-          <a href="javascript:void(0)" class="mr-3" data-toggle="modal" data-target="#editModal" (click)="openModal(task.id, editTask)">Edit</a>
-          <a href="javascript:void(0)" class="text-danger" data-toggle="modal" data-target="#deleteModal" (click)="deleteTask.show()">Delete</a>
+          <a href="javascript:void(0)" class="mr-3" data-toggle="modal" data-target="#editModal" (click)="openModal(task.id, editTaskModal)">Edit</a>
+          <a href="javascript:void(0)" class="text-danger" data-toggle="modal" data-target="#deleteModal" 
+             (click)="openModal(task.id, deleteTaskModal)">Delete</a>
         </div>
         <div class="card-body">
           <h5 class="card-title">{{task.name}}</h5>
@@ -52,13 +70,14 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-4 tasks-wrapper">
+  <div class="tasks-wrapper">
     <div class="no-padding no-margin" *ngFor="let task of toDoList">
       <!-- TODO: set a validation to show the tasks of the logged user -->
       <div class="card my-1" style="width: 100%;" *ngIf="!task.isPending && !task.isDoing && task.isDone">
         <div class="card-header text-right">
-          <a href="javascript:void(0)" class="mr-3" data-toggle="modal" data-target="#editModal" (click)="openModal(task.id, editTask)">Edit</a>
-          <a href="javascript:void(0)" class="text-danger" data-toggle="modal" data-target="#deleteModal" (click)="deleteTask.show()">Delete</a>
+          <a href="javascript:void(0)" class="mr-3" data-toggle="modal" data-target="#editModal" (click)="openModal(task.id, editTaskModal)">Edit</a>
+          <a href="javascript:void(0)" class="text-danger" data-toggle="modal" data-target="#deleteModal" 
+             (click)="openModal(task.id, deleteTaskModal)">Delete</a>
         </div>
         <div class="card-body">
           <h5 class="card-title">{{task.name}}</h5>
@@ -79,13 +98,13 @@
 
 <!-- Add Task Modal -->
 
-<div mdbModal #addTask="mdbModal" class="modal fade top" id="frameModalAdd" tabindex="-1" role="dialog"
+<div mdbModal #addTaskModal="mdbModal" class="modal fade top" id="frameModalAdd" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true" data-dismiss="modal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">NEW TASK</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="addTask.hide()">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -103,7 +122,7 @@
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <button mdbBtn color="default" class="waves-light" mdbWavesEffect>Add</button>
+        <button mdbBtn color="default" class="waves-light" mdbWavesEffect (click)="addTask()">Add</button>
       </div>
     </div>
   </div>
@@ -111,14 +130,14 @@
 
 <!-- Delete Task Modal -->
 
-<div mdbModal #deleteTask="mdbModal" class="modal fade top" id="frameModalDelete" tabindex="-1" role="dialog"
+<div mdbModal #deleteTaskModal="mdbModal" class="modal fade top" id="frameModalDelete" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true" data-dismiss="modal">
   <div class="modal-dialog" role="document">
     <!--Content-->
     <div class="modal-content">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">DELETE TASK</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="editTask.hide()">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -132,9 +151,9 @@
       </div>
       <!--Footer-->
       <div class="modal-footer justify-content-center">
-        <a type="button" mdbBtn color="grey" outline="true" class="waves-effect" mdbWavesEffect (click)="deleteTask.hide()"
+        <a type="button" mdbBtn color="grey" outline="true" class="waves-effect" mdbWavesEffect (click)="closeModal()"
            data-dismiss="modal">Cancel</a>
-        <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect>Delete</a>
+        <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect (click)="deleteTask()">Delete</a>
       </div>
     </div>
     <!--/.Content-->
@@ -142,13 +161,13 @@
 </div>
 
 <!-- Edit Task Modal -->
-<div mdbModal #editTask="mdbModal" class="modal fade top" id="frameModalEdit" tabindex="-1" role="dialog"
+<div mdbModal #editTaskModal="mdbModal" class="modal fade top" id="frameModalEdit" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true" (opened)="getTask()">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">EDIT TASK</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="editTask.hide()">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -166,7 +185,7 @@
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <button mdbBtn color="default" class="waves-light" mdbWavesEffect>Edit</button>
+        <button mdbBtn color="default" class="waves-light" mdbWavesEffect (click)="editTask()">Edit</button>
       </div>
     </div>
   </div>

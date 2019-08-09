@@ -16,7 +16,8 @@ import { ModalDirective } from 'angular-bootstrap-md';
 })
 export class TodoComponent implements OnInit {
 
-  @ViewChild(ModalDirective) modal: ModalDirective;
+  public modal: any;
+
   public taskId: number;
   public taskIdCounter: number;
   public toDoList: Todo[];
@@ -55,36 +56,45 @@ export class TodoComponent implements OnInit {
   /**
    * Edit a single Task
    */
-  editTask(id: number, name: string, description: string, username: string): any {
-    this._todoService.editTask(id, name, description, username);
-    // this.getTasks();
+  editTask(): any {
+    this._todoService.editTask(this.taskId, this.editTaskName, this.editTaskDescription, 'richardbrito');
+    this.getTasks();
   }
 
   /**
    * Add a new to do Task
    * By default the task will be set as Pending
    */
-  addTask(id: number, name: string, description: string, username: string): any {
-    this._todoService.addTask(id, name, description, username);
-    // this.getTasks();
+  addTask() {
+    console.log(this.addTaskName);
+    if (this.addTaskName.length > 0) {
+      this._todoService.addTask(this.addTaskName, this.addTaskDescription, "richardbrito");
+      this.getTasks();
+    }
+    this.closeModal();
   }
 
   /**
    * Delete a single task
    */
-  deleteTask(id: number): any {
-    this._todoService.deleteTask(id);
-    // this.getTasks();
-  }
-
-  getData(eventMsg: any) {
-    this.addTaskName = eventMsg.taskName;
-    this.addTaskDescription = eventMsg.taskName;
+  deleteTask() {
+    this._todoService.deleteTask(this.taskId);
+    this.getTasks();
+    this.closeModal();
   }
 
   openModal(taskId: number, modal: any) {
     this.taskId = taskId;
+    this.modal = modal;
     modal.show();
+  }
+
+  closeModal() {
+    this.modal.hide();
+    this.addTaskName = '';
+    this.addTaskDescription = '';
+    this.editTaskName = '';
+    this.editTaskDescription = '';
   }
 
 }
