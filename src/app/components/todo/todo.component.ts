@@ -56,8 +56,14 @@ export class TodoComponent implements OnInit {
   /**
    * Edit a single Task
    */
-  editTask(): any {
-    this._todoService.editTask(this.taskId, this.editTaskName, this.editTaskDescription, 'richardbrito');
+  editTask() {
+    this._todoService.editTask('richardbrito', this.taskId, this.editTaskName, this.editTaskDescription);
+    this.getTasks();
+    this.closeModal()
+  }
+
+  changeTaskStatus(taskId: number, status: number) {
+    this._todoService.changeTaskStatus(taskId, status);
     this.getTasks();
   }
 

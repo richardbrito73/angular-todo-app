@@ -117,13 +117,27 @@ export class TodoService {
   /**
    * Edit a single Task
    */
-  editTask(id: number, name: string, description: string, username: string): any {
+  editTask(username: string, id: number, name: string, description: string, {status: number = null} = {}): any {
     for ( let index = 0; index < this.toDoList.length; index++ ) {
       // console.log(this.toDoList[index].id);
       if ( this.toDoList[index].id === id ) {
         this.toDoList[index].username =  username;
         this.toDoList[index].name =  name;
         this.toDoList[index].description =  description;
+      }
+    }
+  }
+
+  /**
+   *  Change the status of a task
+   */
+  changeTaskStatus(id: number, status) {
+    for ( let index = 0; index < this.toDoList.length; index++ ) {
+      // console.log(this.toDoList[index].id);
+      if ( this.toDoList[index].id === id ) {
+        this.toDoList[index].isPending = status === 1;
+        this.toDoList[index].isDoing = status === 2;
+        this.toDoList[index].isDone = status === 3;
       }
     }
   }

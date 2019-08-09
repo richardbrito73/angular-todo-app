@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row pb-4">
   <div class="col-lg-6">
     <a href="javascript:void(0)" mdbBtn class="btn btn-info mb-3 mt-4" size="md" id="add-task" 
             data-toggle="modal" data-target="#addModal" (click)="addTaskModal.show()">
@@ -43,8 +43,9 @@
         <div class="card-body">
           <h5 class="card-title">{{task.name}}</h5>
           <p class="card-text">{{task.description}}</p>
+          <p class="text-center"><small>Change to</small></p>
           <div class="btn-group" role="group" aria-label="Basic example" style="width: 100%">
-            <button mdbBtn class="btn btn-info" size="sm">Doing</button>
+            <button mdbBtn class="btn btn-info" size="sm" (click)="changeTaskStatus(task.id, 2)">Doing</button>
           </div>
         </div>
       </div>
@@ -62,15 +63,16 @@
         <div class="card-body">
           <h5 class="card-title">{{task.name}}</h5>
           <p class="card-text">{{task.description}}</p>
+          <p class="text-center"><small>Change to</small></p>
           <div class="btn-group" role="group" aria-label="Basic example" style="width: 100%">
-            <button mdbBtn class="btn btn-warning" size="sm">To Do</button>
-            <button mdbBtn class="btn btn-success" size="sm">Done</button>
+            <button mdbBtn class="btn btn-warning" size="sm" (click)="changeTaskStatus(task.id, 1)">To Do</button>
+            <button mdbBtn class="btn btn-success" size="sm" (click)="changeTaskStatus(task.id, 3)">Done</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="tasks-wrapper">
+  <div class="tasks-wrapper" style="border:none;">
     <div class="no-padding no-margin" *ngFor="let task of toDoList">
       <!-- TODO: set a validation to show the tasks of the logged user -->
       <div class="card my-1" style="width: 100%;" *ngIf="!task.isPending && !task.isDoing && task.isDone">
@@ -82,9 +84,10 @@
         <div class="card-body">
           <h5 class="card-title">{{task.name}}</h5>
           <p class="card-text">{{task.description}}</p>
+          <p class="text-center"><small>Change to</small></p>
           <div class="btn-group" role="group" aria-label="Basic example" style="width: 100%">
-            <button mdbBtn class="btn btn-warning" size="sm">To Do</button>
-            <button mdbBtn class="btn btn-info" size="sm">Doing</button>
+            <button mdbBtn class="btn btn-warning" size="sm" (click)="changeTaskStatus(task.id, 1)">To Do</button>
+            <button mdbBtn class="btn btn-info" size="sm" (click)="changeTaskStatus(task.id, 2)">Doing</button>
           </div>
         </div>
       </div>

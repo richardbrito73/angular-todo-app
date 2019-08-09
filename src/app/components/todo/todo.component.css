@@ -1,5 +1,7 @@
 .todo-container {
   overflow-x: auto; 
+  border-left: 1px solid lightsteelblue;
+  border-right: 1px solid lightsteelblue;
 }
 
 .tasks-wrapper {
@@ -8,6 +10,7 @@
   padding: 0 10px;
   flex: 0 0 auto;
   width: 33.3%;
+  border-right: 1px solid lightsteelblue;
   /*overflow-x: hidden;*/
 }
 
